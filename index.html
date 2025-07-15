@@ -129,33 +129,14 @@
     <button id="flip-button">Flip</button>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-<script>
-  const socket = io();
-</script>
-
-<script>
-  const coin = document.querySelector(".coin");
-  const flipButton = document.querySelector("#flip-button");
-
-  flipButton.addEventListener("click", () => {
-    socket.emit("flip");
-  });
-
-  socket.on("result", (result) => {
-    if (result === "heads" || result === "tails") {
-      coin.setAttribute("data-state", result);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
-
-  socket.on("error", (error) => {
-    console.error("Socket error:", error);
-  });
-</script>
+  <script>
+    document.getElementById("flip-button").addEventListener("click", () => {
+      const result = Math.random() < 0.5 ? "heads" : "tails";
+      document.querySelector(".coin-heads").style.display = result === "heads" ? "block" : "none";
+      document.querySelector(".coin-tails").style.display = result === "tails" ? "block" : "none";
+    });
+  </script>
+  
 
 </body>
 </html>
